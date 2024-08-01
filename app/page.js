@@ -8,7 +8,7 @@ import { collection, getDocs, deleteDoc, doc, query, getDoc,setDoc } from 'fireb
 export default function Home() {
 
   const [inventory,setInventory] = useState([])
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const [itemName, setItemName] = useState('')
   const[ searchQuery, setSearchQuery] = useState('')
   const [ displayList, setDisplayList] = useState([])
@@ -70,18 +70,6 @@ export default function Home() {
     updateInventory()
   },[])
 
-  // useEffect(()=>{
-
-  //   console.log(searchQuery)
-
-  //   const inventoryItems = [...inventory]
-  //   setDisplayList(
-  //     inventory.filter(item=>
-  //       item.name.toLowerCase().includes(query.toLowerCase())
-  //     )
-  //   )
-
-  // },[searchQuery])
 
   const handleOpen = () => setOpen(true)
   const handleClose = ()=> setOpen(false)
@@ -93,18 +81,12 @@ export default function Home() {
     console.log('set search query')
     setSearchQuery(query)
 
-    //we want to keep the old list of inventories
     setDisplayList(
       inventory.filter(item=>
         item.name.toLowerCase().includes(query.toLowerCase())
       )
     )
-
-    //get the list of items that we have
-    //filter the list of items
-    //now, we must set the inventory
-    //
-
+    //adding an item should also change display list
   }
 
 
@@ -120,8 +102,8 @@ export default function Home() {
         <Box
           position = "absolute" 
           top = "50%"
-          left = "50%"
-          sx={{transform : "transalte(-50%, -50%)"}}
+          right = "50%"
+          sx={{transform : "translate(50%, 50%)"}}
           width = {400}
           bgcolor="white"
           border="2px solid #000"
@@ -210,6 +192,11 @@ export default function Home() {
               </Button>
               <Button variant = "contained" onClick={()=>{removeItem()}}>
               Remove
+
+              </Button>
+
+              <Button variant = "contained" onClick={()=>{removeItem()}}>
+              Update
 
               </Button>
               
